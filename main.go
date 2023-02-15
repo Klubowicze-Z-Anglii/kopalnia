@@ -71,7 +71,7 @@ func rozpakowywansko(zipname string) {
 }
 
 func odpalansko(argumenty ...string) {
-	fmt.Println("\nStartujemy!!!!!!!!!!!!!!\n")
+	fmt.Print("\nStartujemy!!!!!!!!!!!!!!\n\n")
 
 	c := exec.Command(argumenty[0], argumenty[1:]...)
 	c.Stderr, c.Stdout, c.Stdin = os.Stderr, os.Stdout, os.Stdin
