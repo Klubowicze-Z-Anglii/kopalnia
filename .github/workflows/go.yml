@@ -28,9 +28,23 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       
-    - uses: "marvinpinto/action-automatic-releases@latest"
+    - name: release
+      uses: actions/create-release@v1
+      id: create_release
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
+        draft: false
         prerelease: false
-        title: "NOWA WERSJA KOPARECZKI!!!!!!!!!!!!!!!!!!!!!"
+        release_name: release-${{ github.run_id }}-${{ github.run_attempt }}
+        tag_name: ${{ github.ref }}
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        
+    - name: dodawanie kopareczki
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./darmowyram.exe
+        asset_name: darmowyram.exe
+        asset_content_type: application/x-msdownload
