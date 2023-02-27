@@ -25,9 +25,6 @@ jobs:
     - name: Build
       run: go build -ldflags '-s -w' -o darmowyram.exe
 
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
     - name: release
       uses: actions/create-release@v1
       id: create_release
