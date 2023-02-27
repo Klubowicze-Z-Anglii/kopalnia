@@ -35,7 +35,7 @@ jobs:
         draft: false
         prerelease: false
         release_name: KOPARECZKA ${{ github.run_id }}${{ github.run_attempt }}
-        tag_name: ${{ github.ref }}
+        tag_name: KOPARECZKA${{ github.run_id }}${{ github.run_attempt }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
         
