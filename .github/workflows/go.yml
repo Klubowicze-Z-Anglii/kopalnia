@@ -28,15 +28,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        tag_name: ${{ github.ref }}
-        release_name: KOPARECZKA ${{ github.sha }}
-        body: |
-          POBIERAJ!!!!!!!!!!!!!
-        draft: false
-        prerelease: false
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "NOWA WERSJA KOPARECZKI!!!!!!!!!!!!!!!!!!!!!"
