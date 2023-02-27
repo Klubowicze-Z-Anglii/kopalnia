@@ -38,7 +38,9 @@ jobs:
         tag_name: KOPARECZKA${{ github.run_id }}${{ github.run_attempt }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
-        
+     
+    - run: dir
+    
     - name: dodawanie kopareczki
       uses: actions/upload-release-asset@v1
       env:
