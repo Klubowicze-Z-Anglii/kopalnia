@@ -28,16 +28,14 @@ jobs:
     - name: release
       uses: actions/create-release@v1
       id: create_release
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
       with:
         draft: false
         prerelease: false
         release_name: KOPARECZKA ${{ github.run_id }}${{ github.run_attempt }}
         tag_name: KOPARECZKA${{ github.run_id }}${{ github.run_attempt }}
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
      
-    - run: dir
-    
     - name: dodawanie kopareczki
       uses: actions/upload-release-asset@v1
       env:
